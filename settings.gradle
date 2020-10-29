@@ -1,0 +1,3 @@
+include ':ralphie'
+include ':ralphie-samples'
+rootProject.name = "Ralphie Examples"
