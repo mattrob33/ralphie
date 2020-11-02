@@ -4,3 +4,4 @@ A Kotlin and Java library for generating plaintext ciphers (Caesar cipher, Alber
 Currently supports:
  1. Caesar Cipher
  2. Alberti's Disk
+ 3. Vigenère Cipher
