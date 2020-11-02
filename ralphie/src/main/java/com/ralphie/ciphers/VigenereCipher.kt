@@ -3,6 +3,8 @@ package com.ralphie.ciphers
 import com.ralphie.util.isLatinAlphabet
 import java.util.*
 import com.ralphie.ciphers.EncryptDecrypt.*
+import com.ralphie.util.toLatinLower
+import com.ralphie.util.toLatinUpper
 
 /**
  * Encrypts and decrypts text using a Vigenère Cipher, where a keyword is used to
@@ -14,15 +16,9 @@ class VigenereCipher(
 	keyword: String
 ): Cipher {
 
-	val keyword = keyword.toUpperCase(Locale.ENGLISH)
+	val keyword = keyword.toLatinUpper()
 
-	private val keywordLower = keyword.toLowerCase(Locale.ENGLISH)
-
-	init {
-		require(isLatinAlphabet(keyword)) {
-			"Keyword must contain only latin alphabet characters (a-z or A-Z)"
-		}
-	}
+	private val keywordLower = keyword.toLatinLower()
 
 	override fun encrypt(msg: String): String {
 		val encrypted = StringBuilder()
@@ -56,7 +52,7 @@ class VigenereCipher(
 
 
 	private fun encryptDecrypt(char: Char, index: Int, opType: EncryptDecrypt): Char {
-		if (char == ' ') return char
+		if (!isLatinAlphabet(char)) return char
 
 		val isUpperCase = (char in 'A'..'Z')
 		val asciiOffset: Int = if (isUpperCase) 'A'.toInt() else 'a'.toInt()

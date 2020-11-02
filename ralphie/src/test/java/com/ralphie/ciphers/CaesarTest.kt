@@ -1,13 +1,12 @@
 package com.ralphie.ciphers
 
-import com.ralphie.ciphers.CaesarCipher
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CaesarTest {
 
     @Test
-    fun `Decrypt matches original, positive bounded shift`() {
+    fun `Decrypted matches original, positive bounded shift`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
         val caesar = CaesarCipher(shift = 7)
@@ -19,7 +18,7 @@ class CaesarTest {
     }
 
     @Test
-    fun `Decrypt matches original, positive unbounded shift`() {
+    fun `Decrypted matches original, positive unbounded shift`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
         val caesar = CaesarCipher(shift = 47)
@@ -31,7 +30,7 @@ class CaesarTest {
     }
 
     @Test
-    fun `Decrypt matches original, negative bounded shift`() {
+    fun `Decrypted matches original, negative bounded shift`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
         val caesar = CaesarCipher(shift = -7)
@@ -43,8 +42,21 @@ class CaesarTest {
     }
 
     @Test
-    fun `Decrypt matches original, negative unbounded shift`() {
+    fun `Decrypted matches original, negative unbounded shift`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
+
+        val caesar = CaesarCipher(shift = -47)
+
+        val encrypted = caesar.encrypt(msg)
+        val decrypted = caesar.decrypt(encrypted)
+
+        assertEquals(msg, decrypted)
+    }
+
+
+    @Test
+    fun `Decrypted matches original, with punctuation`() {
+        val msg = "The Quick Brown Fox JUMPS Over the Lazy Dog! Mr. Dog just barks, barks, barks?"
 
         val caesar = CaesarCipher(shift = -47)
 

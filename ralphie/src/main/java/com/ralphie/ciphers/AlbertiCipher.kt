@@ -45,10 +45,6 @@ class AlbertiCipher: Cipher {
      *
      */
     override fun encrypt(msg: String): String {
-        require(isLatinAlphabet(msg)) {
-            "Message must contain only latin alphabet characters (a-z or A-Z)"
-        }
-
         val encrypted = StringBuilder()
 
         msg.forEach { c ->
@@ -66,10 +62,6 @@ class AlbertiCipher: Cipher {
      *
      */
     override fun decrypt(encryptedMsg: String): String {
-        require(isLatinAlphabet(encryptedMsg)) {
-            "Message must contain only latin alphabet characters (a-z or A-Z)"
-        }
-
         val decrypted = StringBuilder()
 
         encryptedMsg.forEach { c ->
@@ -81,10 +73,18 @@ class AlbertiCipher: Cipher {
     }
 
     private fun encryptChar(c: Char): Char {
-        return albertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
+        return if (isLatinAlphabet(c)) {
+            albertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
+        } else {
+            c
+        }
     }
 
     private fun decryptChar(c: Char): Char {
-        return reverseAlbertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
+        return if (isLatinAlphabet(c)) {
+            reverseAlbertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
+        } else {
+            c
+        }
     }
 }

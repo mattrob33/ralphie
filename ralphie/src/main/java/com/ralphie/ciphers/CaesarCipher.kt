@@ -23,10 +23,6 @@ class CaesarCipher(
      *
      */
     override fun encrypt(msg: String): String {
-        require(isLatinAlphabet(msg)) {
-            "Message must contain only latin alphabet characters (a-z or A-Z)"
-        }
-
         val encrypted = StringBuilder()
 
         msg.forEach { c ->
@@ -44,10 +40,6 @@ class CaesarCipher(
      *
      */
     override fun decrypt(encryptedMsg: String): String {
-        require(isLatinAlphabet(encryptedMsg)) {
-            "Message must contain only latin alphabet characters (a-z or A-Z)"
-        }
-
         val decryptShift = -shift // Decoding a Caesar Cipher is just shifting the encrypted text in the opposite direction (i.e. undoing the shift)
 
         val decrypted = StringBuilder()
