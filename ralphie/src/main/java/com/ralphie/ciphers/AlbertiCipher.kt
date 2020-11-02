@@ -22,10 +22,10 @@ class AlbertiCipher: Cipher {
         val encryptedUpperChars = ('A'..'Z').toMutableList().apply { shuffle() }
 
         encryptedUpperChars.forEachIndexed { index, encryptedUpperChar ->
-            val encryptedLowerChar = encryptedUpperChar + 32
+            val encryptedLowerChar = encryptedUpperChar + ('a' - 'A')
 
-            val upperChar = (65 + index).toChar()
-            val lowerChar = (97 + index).toChar()
+            val upperChar = ('A'.toInt() + index).toChar()
+            val lowerChar = ('a'.toInt() + index).toChar()
 
             albertiDisk[upperChar] = encryptedUpperChar
             albertiDisk[lowerChar] = encryptedLowerChar
