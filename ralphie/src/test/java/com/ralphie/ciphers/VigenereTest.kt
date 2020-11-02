@@ -1,4 +1,4 @@
-package com.ralphie
+package com.ralphie.ciphers
 
 import com.ralphie.ciphers.VigenereCipher
 import org.junit.Assert.*

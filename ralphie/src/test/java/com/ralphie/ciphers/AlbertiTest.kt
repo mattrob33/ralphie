@@ -1,7 +1,7 @@
-package com.ralphie
+package com.ralphie.ciphers
 
-import com.ralphie.ciphers.AlbertiCipher
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 
