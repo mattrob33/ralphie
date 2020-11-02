@@ -14,13 +14,13 @@ class VigenereTest {
     }
     
     @Test
-    fun `Decode matches original`() {
+    fun `Decrypt matches original`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
-        val encoded = vigenere.encode(msg)
-        val decoded = vigenere.decode(encoded)
+        val encrypted = vigenere.encrypt(msg)
+        val decrypted = vigenere.decrypt(encrypted)
 
-        assertNotEquals(encoded, decoded)
-        assertEquals(msg, decoded)
+        assertNotEquals(encrypted, decrypted)
+        assertEquals(msg, decrypted)
     }
 }
