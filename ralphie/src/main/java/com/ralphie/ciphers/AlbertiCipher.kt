@@ -1,4 +1,6 @@
-package com.ralphie
+package com.ralphie.ciphers
+
+import com.ralphie.util.isLatinAlphabet
 
 /**
  * Encodes and decodes text using an Alberti Cipher, where letters are encoded

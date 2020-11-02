@@ -1,4 +1,4 @@
-package com.ralphie
+package com.ralphie.util
 
 fun isLatinAlphabet(text: String): Boolean {
     text.forEach { c ->

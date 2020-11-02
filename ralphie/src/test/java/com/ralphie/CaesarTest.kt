@@ -1,5 +1,6 @@
 package com.ralphie
 
+import com.ralphie.ciphers.CaesarCipher
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

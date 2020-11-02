@@ -1,4 +1,6 @@
-package com.ralphie
+package com.ralphie.ciphers
+
+import com.ralphie.util.isLatinAlphabet
 
 /**
  * Encodes and decodes text using a Caesar Cipher, where letters are shifted
