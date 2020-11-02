@@ -15,7 +15,7 @@ class AlbertiTest {
     }
     
     @Test
-    fun `Decode matches original, with explicit positive shift`() {
+    fun `Decode matches original`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
         val encoded = alberti.encode(msg)
