@@ -5,6 +5,9 @@ import com.ralphie.util.isLatinAlphabet
 /**
  * Encodes and decodes text using an Alberti Cipher, where letters are encoded
  * according to a given key, historically existing in the form of an Alberti disk.
+ *
+ * The same AlbertiCipher instance <i>must</i> be used to encode/decode, since the
+ * "Alberti Disk" lookup table is specific to a given instance.
  */
 class AlbertiCipher {
 
