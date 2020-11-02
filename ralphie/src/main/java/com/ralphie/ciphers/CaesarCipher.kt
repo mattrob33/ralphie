@@ -11,11 +11,11 @@ import com.ralphie.util.isLatinAlphabet
  * shift % 26. So, a shift of -29 is equal to a shift of -3.
  */
 class CaesarCipher(
-    shiftBy: Int = DEFAULT_CAESAR_SHIFT
+    shift: Int = DEFAULT_CAESAR_SHIFT
 ) {
 
-    var shift: Int = shiftBy % 26
-        set(value) {
+    var shift: Int = shift % 26
+        private set(value) {
             field = value % 26
         }
 
@@ -24,20 +24,16 @@ class CaesarCipher(
      *
      * @param msg The text to encode. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
      *
-     * @param shiftBy An optional shift value. If none is specified, the value of the shift field is used.
-     *
      */
-    fun encode(msg: String, shiftBy: Int = shift): String {
+    fun encode(msg: String): String {
         require(isLatinAlphabet(msg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
 
-        val adjustedShift = shiftBy % 26
-
         val encoded = StringBuilder()
 
         msg.forEach { c ->
-            val encodedChar = encodeChar(c, adjustedShift)
+            val encodedChar = encodeChar(c, shift)
             encoded.append(encodedChar)
         }
 
@@ -47,14 +43,24 @@ class CaesarCipher(
     /**
      * Decodes text using a Caesar Cipher.
      *
-     * @param msg The encoded text to decode.
-     *
-     * @param encodeShiftBy The shift value that was used to encode the encoded text.
+     * @param encodedMsg The encoded text to decode.
      *
      */
-    fun decode(encodedMsg: String, encodeShiftBy: Int = shift): String {
-        val decodeShiftBy = -encodeShiftBy
-        return encode(encodedMsg, decodeShiftBy)
+    fun decode(encodedMsg: String): String {
+        require(isLatinAlphabet(encodedMsg)) {
+            "Message must contain only latin alphabet characters (a-z or A-Z)"
+        }
+
+        val decodeShift = -shift // Decoding a Caesar Cipher is just shifting the encoded text in the opposite direction (i.e. undoing the shift)
+
+        val decoded = StringBuilder()
+
+        encodedMsg.forEach { c ->
+            val encodedChar = encodeChar(c, decodeShift)
+            decoded.append(encodedChar)
+        }
+
+        return decoded.toString()
     }
 
     private fun encodeChar(c: Char, shift: Int): Char {
