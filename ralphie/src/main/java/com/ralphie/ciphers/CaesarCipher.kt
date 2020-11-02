@@ -14,10 +14,7 @@ class CaesarCipher(
     shift: Int = DEFAULT_CAESAR_SHIFT
 ): Cipher {
 
-    var shift: Int = shift % 26
-        private set(value) {
-            field = value % 26
-        }
+    val shift: Int = shift % 26
 
     /**
      * Encrypts text using a Caesar Cipher.
