@@ -1,5 +1,6 @@
 package com.ralphie
 
+import com.ralphie.ciphers.VigenereCipher
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -10,7 +11,7 @@ class VigenereTest {
     
     @Before
     fun setup() {
-        vigenere = VigenereCipher()
+        vigenere = VigenereCipher("LEMON")
     }
     
     @Test
@@ -20,7 +21,6 @@ class VigenereTest {
         val encrypted = vigenere.encrypt(msg)
         val decrypted = vigenere.decrypt(encrypted)
 
-        assertNotEquals(encrypted, decrypted)
         assertEquals(msg, decrypted)
     }
 }
