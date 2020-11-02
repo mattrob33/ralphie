@@ -9,7 +9,7 @@ import com.ralphie.util.isLatinAlphabet
  * The same AlbertiCipher instance <i>must</i> be used to encode/decode, since the
  * "Alberti Disk" lookup table is specific to a given instance.
  */
-class AlbertiCipher {
+class AlbertiCipher: Cipher {
 
     // The lookup table of encoded chars
     private val albertiDisk: HashMap<Char, Char> = hashMapOf()
@@ -17,6 +17,7 @@ class AlbertiCipher {
     // The reverse lookup table, used for decoding chars
     private val reverseAlbertiDisk: HashMap<Char, Char> = hashMapOf()
 
+    // TODO: ensure disk is sufficiently scrambled
     init {
         val encodedUpperChars = ('A'..'Z').toMutableList().apply { shuffle() }
 
@@ -43,7 +44,7 @@ class AlbertiCipher {
      * @param msg The text to encode. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
      *
      */
-    fun encode(msg: String): String {
+    override fun encode(msg: String): String {
         require(isLatinAlphabet(msg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
@@ -64,7 +65,7 @@ class AlbertiCipher {
      * @param encodedMsg The encoded text to decode.
      *
      */
-    fun decode(encodedMsg: String): String {
+    override fun decode(encodedMsg: String): String {
         require(isLatinAlphabet(encodedMsg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
@@ -77,22 +78,6 @@ class AlbertiCipher {
         }
 
         return decoded.toString()
-    }
-
-    // TODO: ensure disk is sufficiently scrambled
-    private fun createAlbertiDisk(): HashMap<Char, Char> {
-        val disk: HashMap<Char, Char> = hashMapOf()
-
-        val scrambled = ('A'..'Z').toMutableList().apply { shuffle() }
-
-        scrambled.forEachIndexed { index, char ->
-            disk[(65 + index).toChar()] = char
-            disk[(97 + index).toChar()] = char + 32
-        }
-
-        disk[' '] = ' '
-
-        return disk
     }
 
     private fun encodeChar(c: Char): Char {

@@ -12,7 +12,7 @@ import com.ralphie.util.isLatinAlphabet
  */
 class CaesarCipher(
     shift: Int = DEFAULT_CAESAR_SHIFT
-) {
+): Cipher {
 
     var shift: Int = shift % 26
         private set(value) {
@@ -25,7 +25,7 @@ class CaesarCipher(
      * @param msg The text to encode. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
      *
      */
-    fun encode(msg: String): String {
+    override fun encode(msg: String): String {
         require(isLatinAlphabet(msg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
@@ -46,7 +46,7 @@ class CaesarCipher(
      * @param encodedMsg The encoded text to decode.
      *
      */
-    fun decode(encodedMsg: String): String {
+    override fun decode(encodedMsg: String): String {
         require(isLatinAlphabet(encodedMsg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
