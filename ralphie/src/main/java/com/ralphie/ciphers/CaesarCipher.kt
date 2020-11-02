@@ -3,7 +3,7 @@ package com.ralphie.ciphers
 import com.ralphie.util.isLatinAlphabet
 
 /**
- * Encodes and decodes text using a Caesar Cipher, where letters are shifted
+ * Encrypts and decrypts text using a Caesar Cipher, where letters are shifted
  * left or right by a specified number of letters. For example, a shift value
  * of three transforms 'AbCd' into 'DeFg'.
  *
@@ -20,66 +20,66 @@ class CaesarCipher(
         }
 
     /**
-     * Encodes text using a Caesar Cipher.
+     * Encrypts text using a Caesar Cipher.
      *
-     * @param msg The text to encode. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
+     * @param msg The text to encrypt. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
      *
      */
-    override fun encode(msg: String): String {
+    override fun encrypt(msg: String): String {
         require(isLatinAlphabet(msg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
 
-        val encoded = StringBuilder()
+        val encrypted = StringBuilder()
 
         msg.forEach { c ->
-            val encodedChar = encodeChar(c, shift)
-            encoded.append(encodedChar)
+            val encryptedChar = encryptChar(c, shift)
+            encrypted.append(encryptedChar)
         }
 
-        return encoded.toString()
+        return encrypted.toString()
     }
 
     /**
-     * Decodes text using a Caesar Cipher.
+     * Decrypts text using a Caesar Cipher.
      *
-     * @param encodedMsg The encoded text to decode.
+     * @param encryptedMsg The encrypted text to decrypt.
      *
      */
-    override fun decode(encodedMsg: String): String {
-        require(isLatinAlphabet(encodedMsg)) {
+    override fun decrypt(encryptedMsg: String): String {
+        require(isLatinAlphabet(encryptedMsg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
 
-        val decodeShift = -shift // Decoding a Caesar Cipher is just shifting the encoded text in the opposite direction (i.e. undoing the shift)
+        val decryptShift = -shift // Decoding a Caesar Cipher is just shifting the encrypted text in the opposite direction (i.e. undoing the shift)
 
-        val decoded = StringBuilder()
+        val decrypted = StringBuilder()
 
-        encodedMsg.forEach { c ->
-            val encodedChar = encodeChar(c, decodeShift)
-            decoded.append(encodedChar)
+        encryptedMsg.forEach { c ->
+            val encryptedChar = encryptChar(c, decryptShift)
+            decrypted.append(encryptedChar)
         }
 
-        return decoded.toString()
+        return decrypted.toString()
     }
 
-    private fun encodeChar(c: Char, shift: Int): Char {
+    private fun encryptChar(c: Char, shift: Int): Char {
         return when(c) {
             in 'A'..'Z' -> {
-                var encoded = c + shift
-                if (encoded > 'Z')
-                    encoded -= 26
-                else if (encoded < 'A')
-                    encoded += 26
-                encoded
+                var encrypted = c + shift
+                if (encrypted > 'Z')
+                    encrypted -= 26
+                else if (encrypted < 'A')
+                    encrypted += 26
+                encrypted
             }
             in 'a'..'z' -> {
-                var encoded = c + shift
-                if (encoded > 'z')
-                    encoded -= 26
-                else if (encoded < 'a')
-                    encoded += 26
-                encoded
+                var encrypted = c + shift
+                if (encrypted > 'z')
+                    encrypted -= 26
+                else if (encrypted < 'a')
+                    encrypted += 26
+                encrypted
             }
             ' ' -> ' '
             else -> c

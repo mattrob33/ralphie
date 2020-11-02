@@ -1,6 +1,6 @@
 package com.ralphie.ciphers
 
 interface Cipher {
-	fun encode(msg: String): String
-	fun decode(encodedMsg: String): String
+	fun encrypt(msg: String): String
+	fun decrypt(encryptedMsg: String): String
 }

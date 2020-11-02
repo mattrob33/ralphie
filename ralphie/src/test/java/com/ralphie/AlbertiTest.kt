@@ -15,13 +15,13 @@ class AlbertiTest {
     }
     
     @Test
-    fun `Decode matches original`() {
+    fun `Decrypt matches original`() {
         val msg = "ABCDEFGHIJKLMNOPQRSTUVWYZ abcdefghijklmnopqrstuvwxyz"
 
-        val encoded = alberti.encode(msg)
-        val decoded = alberti.decode(encoded)
+        val encrypted = alberti.encrypt(msg)
+        val decrypted = alberti.decrypt(encrypted)
 
-        assertNotEquals(encoded, decoded)
-        assertEquals(msg, decoded)
+        assertNotEquals(encrypted, decrypted)
+        assertEquals(msg, decrypted)
     }
 }

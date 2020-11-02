@@ -3,15 +3,15 @@ package com.ralphie.ciphers
 import com.ralphie.util.isLatinAlphabet
 
 /**
- * Encodes and decodes text using an Alberti Cipher, where letters are encoded
+ * Encrypts and decrypts text using an Alberti Cipher, where letters are encrypted
  * according to a given key, historically existing in the form of an Alberti disk.
  *
- * The same AlbertiCipher instance <i>must</i> be used to encode/decode, since the
+ * The same AlbertiCipher instance <i>must</i> be used to encrypt/decrypt, since the
  * "Alberti Disk" lookup table is specific to a given instance.
  */
 class AlbertiCipher: Cipher {
 
-    // The lookup table of encoded chars
+    // The lookup table of encrypted chars
     private val albertiDisk: HashMap<Char, Char> = hashMapOf()
 
     // The reverse lookup table, used for decoding chars
@@ -19,19 +19,19 @@ class AlbertiCipher: Cipher {
 
     // TODO: ensure disk is sufficiently scrambled
     init {
-        val encodedUpperChars = ('A'..'Z').toMutableList().apply { shuffle() }
+        val encryptedUpperChars = ('A'..'Z').toMutableList().apply { shuffle() }
 
-        encodedUpperChars.forEachIndexed { index, encodedUpperChar ->
-            val encodedLowerChar = encodedUpperChar + 32
+        encryptedUpperChars.forEachIndexed { index, encryptedUpperChar ->
+            val encryptedLowerChar = encryptedUpperChar + 32
 
             val upperChar = (65 + index).toChar()
             val lowerChar = (97 + index).toChar()
 
-            albertiDisk[upperChar] = encodedUpperChar
-            albertiDisk[lowerChar] = encodedLowerChar
+            albertiDisk[upperChar] = encryptedUpperChar
+            albertiDisk[lowerChar] = encryptedLowerChar
 
-            reverseAlbertiDisk[encodedUpperChar] = upperChar
-            reverseAlbertiDisk[encodedLowerChar] = lowerChar
+            reverseAlbertiDisk[encryptedUpperChar] = upperChar
+            reverseAlbertiDisk[encryptedLowerChar] = lowerChar
         }
 
         albertiDisk[' '] = ' '
@@ -39,52 +39,52 @@ class AlbertiCipher: Cipher {
     }
 
     /**
-     * Encodes text using an Alberti Cipher.
+     * Encrypts text using an Alberti Cipher.
      *
-     * @param msg The text to encode. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
+     * @param msg The text to encrypt. Must consist only of latin alphabet characters (a-z or A-Z) and whitespaces.
      *
      */
-    override fun encode(msg: String): String {
+    override fun encrypt(msg: String): String {
         require(isLatinAlphabet(msg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
 
-        val encoded = StringBuilder()
+        val encrypted = StringBuilder()
 
         msg.forEach { c ->
-            val encodedChar = encodeChar(c)
-            encoded.append(encodedChar)
+            val encryptedChar = encryptChar(c)
+            encrypted.append(encryptedChar)
         }
 
-        return encoded.toString()
+        return encrypted.toString()
     }
 
     /**
-     * Decodes text using an Alberti Cipher.
+     * Decrypts text using an Alberti Cipher.
      *
-     * @param encodedMsg The encoded text to decode.
+     * @param encryptedMsg The encrypted text to decrypt.
      *
      */
-    override fun decode(encodedMsg: String): String {
-        require(isLatinAlphabet(encodedMsg)) {
+    override fun decrypt(encryptedMsg: String): String {
+        require(isLatinAlphabet(encryptedMsg)) {
             "Message must contain only latin alphabet characters (a-z or A-Z)"
         }
 
-        val decoded = StringBuilder()
+        val decrypted = StringBuilder()
 
-        encodedMsg.forEach { c ->
-            val decodedChar = decodeChar(c)
-            decoded.append(decodedChar)
+        encryptedMsg.forEach { c ->
+            val decryptedChar = decryptChar(c)
+            decrypted.append(decryptedChar)
         }
 
-        return decoded.toString()
+        return decrypted.toString()
     }
 
-    private fun encodeChar(c: Char): Char {
+    private fun encryptChar(c: Char): Char {
         return albertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
     }
 
-    private fun decodeChar(c: Char): Char {
+    private fun decryptChar(c: Char): Char {
         return reverseAlbertiDisk[c] ?: throw IllegalArgumentException("Illegal char $c")
     }
 }
